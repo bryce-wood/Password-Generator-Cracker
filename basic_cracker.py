@@ -27,8 +27,8 @@ def brute_force_crack(
 
     return None, attempts, elapsed, speed
 
-if __name__ == "__main__":
-    target_password = "test1"
+def demo(password: str = "Zac1"):
+    target_password = password # Zac12 took almost 100x longer, i'd assume Zac123 takes 10,000x longer, so we will use Zac1 for demo
     print(f"Target Password: {target_password}")
 
     cracked_password, total_attempts, total_time, hash_rate = brute_force_crack(target_password)

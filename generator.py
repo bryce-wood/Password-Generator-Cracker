@@ -33,5 +33,3 @@ def generate_password(length: int = 8, include_lower: bool = True, include_upper
     password = ''.join(password)
 
     return password
-
-print(f"password: {generate_password(32)}")

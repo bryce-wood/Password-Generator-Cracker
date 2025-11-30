@@ -146,21 +146,22 @@ def hash_cracker(
 
 
 # demo
-DEMO_PASSWORD = "Zac123"
-TARGET_HASH = hash_guess(DEMO_PASSWORD)
+def demo(password: str = "Zac123"):
+    DEMO_PASSWORD = password
+    TARGET_HASH = hash_guess(DEMO_PASSWORD)
 
-result = hash_cracker(
-    target_hash=TARGET_HASH,
-    target_password=DEMO_PASSWORD,
-    context_words=["Zac", "Holbrook", "Oakland"],
-    max_brute_length=6
-)
+    result = hash_cracker(
+        target_hash=TARGET_HASH,
+        target_password=DEMO_PASSWORD,
+        context_words=["Zac", "Holbrook", "Oakland"],
+        max_brute_length=6
+    )
 
-cracked_pwd, total_attempts, total_time, hash_speed = result
+    cracked_pwd, total_attempts, total_time, hash_speed = result
 
-print(f"RESULT SUMMARY:")
-print(f"  Target Hash: {TARGET_HASH}")
-print(f"  Cracked Password: {cracked_pwd}")
-print(f"  Total Attempts: {total_attempts:,}")
-print(f"  Time Elapsed: {total_time:.4f} seconds")
-print(f"  Hash Speed: {hash_speed:.0f} hashes/second")
+    print(f"RESULT SUMMARY:")
+    print(f"  Target Hash: {TARGET_HASH}")
+    print(f"  Cracked Password: {cracked_pwd}")
+    print(f"  Total Attempts: {total_attempts:,}")
+    print(f"  Time Elapsed: {total_time:.4f} seconds")
+    print(f"  Hash Speed: {hash_speed:.0f} hashes/second")
