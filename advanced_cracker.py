@@ -31,11 +31,11 @@ def mutate_words(words: List[str]) -> set:
         mutations.add(base[::-1])
 
         # Simple suffix additions
-        for suffix in ["1", "123", "!", "!!", "2024", "1!"]:
+        for suffix in ["1", "123", "!", "!!", "2025", "1!"]:
             mutations.add(base + suffix)
 
         # prefix additions
-        for prefix in ["!", "1", "2024"]:
+        for prefix in ["!", "1", "2025"]:
             mutations.add(prefix + base)
 
         # Leetspeak variants
@@ -60,9 +60,11 @@ def hash_guess(guess: str, algorithm: str = HASH_ALGORITHM) -> str:
 
 def analyze_with_zxcvbn(password: str, context_words: List[str]):
     """Prints the password strength analysis using zxcvbn."""
-    print("\nPASSWORD ANALYSIS (Strength Estimation)")
+    print("==================================")
+    print("PASSWORD ANALYSIS (Strength Estimation)")
+    print("==================================")
     analysis = zxcvbn(password, user_inputs=context_words)
-    print("  Score (0-4):", analysis["score"])
+    print("\n  Score (0-4):", analysis["score"])
     print("  Estimated Crack Times:", analysis["crack_times_display"]["offline_fast_hashing_1e10_per_second"])
 
 def hash_cracker(
@@ -81,7 +83,7 @@ def hash_cracker(
 
     analyze_with_zxcvbn(target_password, context_words)
 
-    print(f"\n===== {HASH_ALGORITHM.upper()} HASH CRACKER DEMO =====\n")
+    print(f"\n========== {HASH_ALGORITHM.upper()} HASH CRACKER DEMO ==========\n")
     print("Target Password:", target_password)
     print("Target Hash:", target_hash)
     
@@ -93,8 +95,7 @@ def hash_cracker(
     master_dictionary.update(COMMON_PASSWORDS)
     master_dictionary.update(mutate_words(context_words))
 
-    print(f"\nDictionary Size: {len(master_dictionary)} unique candidates")
-    print("Trying dictionary candidates...")
+    print("\nTrying dictionary candidates...")
 
     for guess in master_dictionary:
         attempts += 1
@@ -106,7 +107,7 @@ def hash_cracker(
                 speed = attempts / elapsed
             else:
                 speed = float('inf')
-            print(f"\nFOUND via Dictionary Attack (Attempt {attempts})!\n")
+            print("\nFOUND via Dictionary Attack!\n")
             return guess, attempts, elapsed, speed
     
     print("Dictionary failed. Falling back to limited Brute Force...")
@@ -158,10 +159,11 @@ def demo(password: str = "Zac123"):
     )
 
     cracked_pwd, total_attempts, total_time, hash_speed = result
-
+    print("==================")
     print(f"RESULT SUMMARY:")
-    print(f"  Target Hash: {TARGET_HASH}")
-    print(f"  Cracked Password: {cracked_pwd}")
-    print(f"  Total Attempts: {total_attempts:,}")
-    print(f"  Time Elapsed: {total_time:.4f} seconds")
-    print(f"  Hash Speed: {hash_speed:.0f} hashes/second")
+    print("==================")
+    print(f"\n  Target Hash: {TARGET_HASH}")
+    print(f"\n  Cracked Password: {cracked_pwd}")
+    print(f"\n  Total Attempts: {total_attempts:,}")
+    print(f"\n  Time Elapsed: {total_time:.4f} seconds")
+    print(f"\n  Hash Speed: {hash_speed:.0f} hashes/second")
