@@ -49,6 +49,8 @@ def mutate_words(words: List[str]) -> set:
         mutations.add(leet)
         mutations.add(leet + "1")
         mutations.add(leet + "!")
+        mutations.add(leet + "123")
+        mutations.add(leet + "123!")
 
     return mutations
 
@@ -113,7 +115,7 @@ def hash_cracker(
     print("Dictionary failed. Falling back to limited Brute Force...")
 
     # brute force fallback
-    charset = string.ascii_letters + string.digits
+    charset = string.ascii_lowercase + string.ascii_uppercase + string.digits + "!@#$%^&*()-_=+[]{}|\\;:'\",<.>/?`~"
     print(f"Charset Size: {len(charset)}")
     print(f"Trying Brute Force up to length {max_brute_length}...")
     
@@ -134,11 +136,7 @@ def hash_cracker(
                 speed = attempts / elapsed
                 print(f"\nFOUND via Brute Force Fallback (Attempt {attempts})!")
                 return guess, attempts, elapsed, speed
-
-            # progress reporting
-            if attempts % 1000000 == 0:
-                 print(f"    Checked {attempts:,} hashes so far...")
-
+            
 
     elapsed = time.time() - start_time
     speed = attempts / elapsed if elapsed else 0
@@ -147,15 +145,15 @@ def hash_cracker(
 
 
 # demo
-def demo(password: str = "Zac123"):
+def demo(password: str = "H0lbr00k123!"):
     DEMO_PASSWORD = password
     TARGET_HASH = hash_guess(DEMO_PASSWORD)
 
     result = hash_cracker(
         target_hash=TARGET_HASH,
         target_password=DEMO_PASSWORD,
-        context_words=["Zac", "Holbrook", "Oakland"],
-        max_brute_length=6
+        context_words=["Zac", "Holbrook", "2004"],
+        max_brute_length=12
     )
 
     cracked_pwd, total_attempts, total_time, hash_speed = result
