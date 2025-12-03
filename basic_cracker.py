@@ -4,7 +4,7 @@ import time
 
 def brute_force_crack(
     target: str,
-    charset: str = string.ascii_lowercase + string.ascii_uppercase + string.digits + "!@#$%^&*()-_=+[]{};:,.<>?/",
+    charset: str = string.ascii_lowercase + string.ascii_uppercase + string.digits + "!@#$%^&*()-_=+[]{}|\\;:'\",<.>/?`~",
     max_length: int = 10
 ):
     start_time = time.time()
